@@ -1,0 +1,44 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": ["Hi", "Hello", "Hey"],
+            "responses": ["Hello! How can I assist you?", "Hi there! How can I help?"]
+        },
+        {
+            "tag": "animal",
+            "patterns": ["Tell me about dogs", "What do you know about cats?", "Animals"],
+            "responses": ["Dogs are domesticated mammals, not natural wild animals. They were originally bred from wolves.", "Cats are domesticated animals that are often kept as pets. They are known for their independent nature."]
+        },
+        {
+            "tag": "food",
+            "patterns": ["Recommend me a restaurant", "I'm hungry", "Food"],
+            "responses": ["There are several good restaurants nearby. What type of cuisine are you interested in?", "Sure! What kind of food are you in the mood for?"]
+        },
+        {
+            "tag": "school",
+            "patterns": ["Tell me about Harvard University", "Schools", "College"],
+            "responses": ["Harvard University is a prestigious Ivy League research university in Cambridge, Massachusetts, established in 1636."]
+        },
+        {
+            "tag": "house",
+            "patterns": ["How to buy a house", "Real estate", "Housing market"],
+            "responses": ["Buying a house involves many steps, such as finding a suitable property, getting financing, and negotiating with sellers."]
+        },
+        {
+            "tag": "road",
+            "patterns": ["Traffic update", "Road conditions", "Highway"],
+            "responses": ["Traffic is flowing smoothly on most major highways. However, there are some delays reported on Interstate 405."]
+        },
+        {
+            "tag": "person",
+            "patterns": ["Who is Elon Musk?", "Famous people", "Celebrities"],
+            "responses": ["Elon Musk is a business magnate, industrial designer, and engineer. He is the founder, CEO, CTO, and chief designer of SpaceX."]
+        },
+        {
+            "tag": "car",
+            "patterns": ["Tell me about Tesla cars", "Automobiles", "Vehicles"],
+            "responses": ["Tesla, Inc. is an American electric vehicle and clean energy company founded by Elon Musk. Tesla cars are known for their electric propulsion system and advanced technology."]
+        }
+    ]
+}

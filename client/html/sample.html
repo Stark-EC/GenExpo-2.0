@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <meta name="description" content="A conversational AI system that listens, learns, and challenges" />
+    <meta property="og:title" content="GENEXPO-2" />
+    <meta property="og:image" content="https://openai.com/content/images/2022/11/GENEXPO-2.jpg" />
+    <meta property="og:description" content="A conversational AI system that listens, learns, and challenges" />
+    <meta property="og:url" content="https://chat.acy.dev" />
+    <link rel="stylesheet" href="{{ url_for('bp.static', filename='css/style.css') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('bp.static', filename='img/') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('bp.static', filename='img/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('bp.static', filename='img/favicon-16x16.png') }}" />
+    <link rel="manifest" href="{{ url_for('bp.static', filename='img/site.webmanifest') }}" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/base16/dracula.min.css" />
+    <title>GENEXPO-2.0 || USES GPT-3 GPT-4 GPT-dan-11 GPT-evil TO GENERATE ACCURATE RESPONSES</title>
+</head>
+<body data-urlprefix="{{ url_prefix}}">
+<div class="main-container">
+    <div class="box sidebar">
+        <div class="top">
+            <button class="button" onclick="new_conversation()">
+                <i class="fa-regular fa-plus"></i>
+                <span>{{_('New Conversation')}}</span>
+            </button>
+            <div class="spinner"></div>
+        </div>
+        <div class="sidebar-footer">
+            <button class="button" onclick="delete_conversations()">
+                <i class="fa-regular fa-trash"></i>
+                <span>{{_('Clear Conversations')}}</span>
+            </button>
+            <div class="settings-container">
+                <div class="checkbox field">
+                    <span>{{_('Dark Mode')}}</span>
+                    <input type="checkbox" id="theme-toggler" />
+                    <label for="theme-toggler"></label>
+                </div>
+                <div class="field">
+                    <span>{{_('Language')}}</span>
+                    <select class="dropdown" id="language" onchange="changeLanguage(this.value)"></select>
+                </div>
+            </div>
+            <a class="info" href="https://github.com/Stark-EC" target="_blank">
+                <i class="">Powered by StarkEC Team </i><br>
+                <span class="conversation-title">{{_('Version')}}: 2.0</span>
+            </a>
+        </div>
+    </div>
+    <div class="conversation">
+        <div class="stop-generating stop-generating-hidden">
+            <button class="button" id="cancelButton">
+                <span>{{_('Stop Generating')}}</span>
+            </button>
+        </div>
+        <div class="box" id="messages">
+            <div id="placeholder" class="placeholder">Start typing to ask a question...</div>
+        </div>
+        <div class="user-input">
+            <div class="box input-box">
+                <textarea
+                    id="message-input"
+                    placeholder="{{_('Ask me anything and I will help you!')}}"
+                    cols="30"
+                    rows="10"
+                    style="white-space: pre-wrap"
+                    onfocus="removePlaceholder()"
+                    onblur="restorePlaceholder()"></textarea>
+                <div id="send-button">
+                    <i class="fa-regular fa-paper-plane-top"></i>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="options-container">
+                <div class="buttons">
+                    <div class="field">
+                        <select class="dropdown" name="model" id="model">
+                            <option value="gpt-3.5-turbo">GPT-3.5</option>
+                            <option value="gpt-3.5-turbo-16k">GPT-3.5-turbo-16k</option>
+                            <option value="gpt-4" selected></option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <select class="dropdown" name="jailbreak" id="jailbreak">
+                            <option value="default" selected>{{_('Default')}}</option>
+                            <option value="gpt-dan-11.0">{{_('DAN')}}</option>
+                            <option value="gpt-evil">{{_('Evil')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field checkbox">
+                    <input type="checkbox" id="switch" />
+                    <label for="switch"></label>
+                    <span>{{_('Web Access')}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="menu-button">
+    <i class="fa-solid fa-bars"></i>
+</div>
+
+<!-- scripts -->
+<script>
+    function removePlaceholder() {
+        document.getElementById("placeholder").style.display = "none";
+    }
+
+    function restorePlaceholder() {
+        var messageInput = document.getElementById("message-input");
+        if (messageInput.value.trim() === "") {
+            document.getElementById("placeholder").style.display = "block";
+        }
+    }
+
+    window.conversation_id = "{{ chat_id }}";
+</script>
+<script src="{{ url_for('bp.static', filename='js/icons.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/chat.js') }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@latest/dist/markdown-it.min.js"></script>
+<script src="{{ url_for('bp.static', filename='js/highlight.min.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/highlightjs-copy.min.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/theme-toggler.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/sidebar-toggler.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/change-language.js') }}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <meta name="description" content="A conversational AI system that listens, learns, and challenges" />
+    <meta property="og:title" content="GENEXPO-2" />
+    <meta property="og:image" content="https://openai.com/content/images/2022/11/GENEXPO-2.jpg" />
+    <meta property="og:description" content="A conversational AI system that listens, learns, and challenges" />
+    <meta property="og:url" content="https://chat.acy.dev" />
+    <link rel="stylesheet" href="{{ url_for('bp.static', filename='css/style.css') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('bp.static', filename='img/') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('bp.static', filename='img/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('bp.static', filename='img/favicon-16x16.png') }}" />
+    <link rel="manifest" href="{{ url_for('bp.static', filename='img/site.webmanifest') }}" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@latest/build/styles/base16/dracula.min.css" />
+    <title>GENEXPO-2.0 || USES GPT-3 GPT-4 GPT-dan-11 GPT-evil TO GENERATE ACCURATE RESPONSES</title>
+    <style>
+        /* Center the text and increase font size */
+        #placeholder {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        /* Style the logo */
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body data-urlprefix="{{ url_prefix}}">
+    <div class="main-container">
+        
+            <!-- Sidebar content -->
+        
+		<div class="box sidebar">
+			<div class="top">
+				<button class="button" onclick="new_conversation()">
+					<i class="fa-regular fa-plus"></i>
+					<span>{{_('New Conversation')}}</span>
+				</button>
+				<div class="spinner"></div>
+			</div>
+			<div class="sidebar-footer">
+				<button class="button" onclick="delete_conversations()">
+					<i class="fa-regular fa-trash"></i>
+					<span>{{_('Clear Conversations')}}</span>
+				</button>
+				<div class="settings-container">
+					<div class="checkbox field">
+						<span>{{_('Dark Mode')}}</span>
+						<input type="checkbox" id="theme-toggler" />
+						<label for="theme-toggler"></label>
+					</div>
+					<div class="field">
+						<span>{{_('Language')}}</span>
+						<select class="dropdown" id="language" onchange="changeLanguage(this.value)"></select>
+					</div>
+				</div>
+				<a class="info" href="https://github.com/Stark-EC" target="_blank">
+					<i class="">Powered by StarkEC Team </i><br>
+					<span class="conversation-title">{{_('Version')}}: 2.0</span>
+				</a>
+			</div>
+		</div>
+        <div class="conversation">
+            <div class="stop-generating stop-generating-hidden">
+                <!-- Stop generating content -->
+            </div>
+            <div class="box" id="messages">
+                <!-- Placeholder text -->
+                <div class="logo">
+                    <!-- Logo goes here -->
+                    <img src="../img/gpt.png" alt="GENEXPO-2.0">
+                </div>
+                <div id="placeholder">How can I help you today?</div>
+            </div>
+            <div class="user-input">
+                <div class="box input-box">
+                    <!-- User input content -->
+                    <textarea
+                        id="message-input"
+                        placeholder="{{_('Ask me anything and I will help you!')}}"
+                        cols="30"
+                        rows="10"
+                        style="white-space: pre-wrap"></textarea>
+                    <div id="send-button">
+                        <i class="fa-regular fa-paper-plane-top" onclick="sendMessage()"></i>
+                    </div>
+                </div>
+            </div>
+            <div>
+                     <!-- Options content -->
+                
+				<div class="options-container">
+					<div class="buttons">
+						<div class="field">
+							<select class="dropdown" name="model" id="model">
+								<option value="gpt-3.5-turbo">GPT-3.5</option>
+								<option value="gpt-3.5-turbo-16k">GPT-3.5-turbo-16k</option>
+								<option value="gpt-4" selected></option>
+							</select>
+						</div>
+						<div class="field">
+							<select class="dropdown" name="jailbreak" id="jailbreak">
+								<option value="default" selected>{{_('Default')}}</option>
+								<option value="gpt-dan-11.0">{{_('DAN')}}</option>
+								<option value="gpt-evil">{{_('Evil')}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="field checkbox">
+						<input type="checkbox" id="switch" />
+						<label for="switch"></label>
+						<span>{{_('Web Access')}}</span>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-button">
+        <!-- Menu button content -->
+		<i class="fa-solid fa-bars"></i>
+    </div>
+    <!-- Scripts --
+    
+    //     function sendMessage() {
+    //         var messageInput = document.getElementById("message-input");
+    //         var message = messageInput.value.trim();
+    //         if (message !== "") {
+    //             // Send message functionality goes here
+    //             // For demonstration purpose, let's just log the message
+    //             console.log("Message sent: " + message);
+
+    //             // Clear the input
+    //             messageInput.value = "";
+    //         }
+    //         // Hide the placeholder
+    //         document.getElementById("placeholder").style.display = "none";
+    //     }
+    //
+	---->
+	<!-- scripts -->
+<script>
+    function removePlaceholder() {
+        document.getElementById("placeholder").style.display = "none";
+    }
+
+    function restorePlaceholder() {
+        var messageInput = document.getElementById("message-input");
+        if (messageInput.value.trim() === "") {
+            document.getElementById("placeholder").style.display = "block";
+        }
+    }
+
+    window.conversation_id = "{{ chat_id }}";
+</script>
+<script src="{{ url_for('bp.static', filename='js/icons.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/chat.js') }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@latest/dist/markdown-it.min.js"></script>
+<script src="{{ url_for('bp.static', filename='js/highlight.min.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/highlightjs-copy.min.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/theme-toggler.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/sidebar-toggler.js') }}"></script>
+<script src="{{ url_for('bp.static', filename='js/change-language.js') }}"></script>
+
+</body>
+</html>
